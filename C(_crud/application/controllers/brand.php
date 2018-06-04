@@ -25,8 +25,19 @@ class brand extends CI_Controller
 	}
 	public function submit()
 	{
-		$result=$this->b->submit();
-		redirect(base_url('brand/index'));
+		$this->form_validation->set_rules('txt_title','Title','required');
+		$this->form_validation->set_rules('txt_description','Description','required');
+		if($this->form_validation->run())
+		{
+			$result=$this->b->submit();
+			redirect(base_url('brand/index'));
+		}
+		else
+		{
+			$this->load->view('layout/header');
+			$this->load->view('data/add');
+			$this->load->view('layout/footer');
+		}
 	}
 	public function edit($id)
 	{
