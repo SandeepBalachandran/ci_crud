@@ -49,8 +49,19 @@ class brand extends CI_Controller
 	}
 	public function update()
 	{
+		$this->form_validation->set_rules('txt_title','Title','required');
+		$this->form_validation->set_rules('txt_description','Description','required');
+		if($this->form_validation->run())
+		{
 		$this->b->update();
 		redirect(base_url('brand/index'));
+		}
+		else
+		{
+			$this->load->view('layout/header');
+			$this->load->view('data/edit');
+			$this->load->view('layout/footer');
+		}
 
 	}
 	public function delete($id)
